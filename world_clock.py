@@ -11,7 +11,8 @@ import yaml
 from tkinter import ttk
 from ttkthemes import ThemedTk
 from ttk_extensions import AutocompleteEntry, DropDown, matches
-
+import platform
+import os
 
 class WorldClock:
     def __init__(self, master, l_tz=None, num_max_clocks=20):
@@ -116,7 +117,32 @@ if __name__ == '__main__':
     root = ThemedTk(themebg=True)
     app = WorldClock(master=root)
     root.set_theme('equilux')
-    root.iconbitmap(r'clock_mini_icon.ico')
+    if platform.system() == "Windows":
+        root.iconbitmap(r'clock_mini_icon.ico')
+    else:
+        # See <https://stackoverflow.com/questions/16081201/
+        #   setting-application-icon-in-my-python-tk-base-application-
+        #   on-ubuntu>.
+        # iconPath = os.path.realpath('clock_mini_icon.ico')
+        iconPath = os.path.realpath('clock_mini_icon.png')
+        # iconPath = os.path.realpath('clock_mini_icon.gif')
+        # iconPath = os.path.realpath('clock_mini_icon.xbm')
+        # img = tk.PhotoImage(iconPath)
+        img = tk.Image("photo", file=iconPath)
+        # ^ no error but no display using root.tk.call iconphoto
+        # img = tk.PhotoImage(file=iconPath)
+        # root.iconphoto(True, img)
+        # root.iconbitmap("@clock_mini_icon.xbm")  # necessary for xbm
+        # root.tk.call('wm', 'iconphoto', root._w, img)
+        # print("root.tk: {}".format(type(root.tk)))  # _tkinter.tkapp
+        # print("root._w: {}".format(type(root._w)))  # str
+        # label = tk.Label(image=img)
+        # root.iconwindow(label)
+        # ^ "_tkinter.TclError: can't use .!label as icon window: not at
+        #   top level"
+        # root.iconbitmap(iconPath)
+        # ^ "_tkinter.TclError: bitmap ... not defined"
+        root.tk.call('wm', 'iconphoto', root._w, img)
 
     change_text(app)
     root.mainloop()
