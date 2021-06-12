@@ -1,3 +1,7 @@
+# world_clock-specific files
+*world_clock.yaml
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
