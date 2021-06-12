@@ -88,7 +88,7 @@ class WorldClock:
         """
         wc_config = {'l_tz': self.l_tz, 'b_seconds': self.b_show_seconds.get()}
 
-        with open(r'.\world_clock.yaml', 'w') as config_file:
+        with open(r'world_clock.yaml', 'w') as config_file:
             yaml.dump(wc_config, config_file)
 
 
