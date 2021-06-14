@@ -14,6 +14,7 @@ from ttk_extensions import AutocompleteEntry, DropDown, matches
 import platform
 import os
 
+
 class WorldClock:
     def __init__(self, master, l_tz=None, num_max_clocks=20):
         self.master = master
@@ -54,12 +55,12 @@ class WorldClock:
             self.l_entries[i].bind("<Key>", lambda e: "break")
 
         self.bt_update = ttk.Button(self.frame, text="Update", command=self.redesign_clocks)
-        self.bt_update.grid(row=i+1, column=0, columnspan=1)
-        self.dd_num_clocks = DropDown(self.frame, range(1, self.num_max_clocks+1), self.num_clocks)
-        self.dd_num_clocks.grid(row=i+1, column=1, columnspan=1)
+        self.bt_update.grid(row=i + 1, column=0, columnspan=1)
+        self.dd_num_clocks = DropDown(self.frame, range(1, self.num_max_clocks + 1), self.num_clocks)
+        self.dd_num_clocks.grid(row=i + 1, column=1, columnspan=1)
 
         self.ck_seconds = ttk.Checkbutton(self.frame, text="Show Seconds", variable=self.b_show_seconds)
-        self.ck_seconds.grid(row=i+1, column=2, columnspan=1)
+        self.ck_seconds.grid(row=i + 1, column=2, columnspan=1)
 
     def redesign_clocks(self):
         """
@@ -76,7 +77,7 @@ class WorldClock:
         Load previous known state if exists
         """
         try:
-            self.wc_config = yaml.safe_load(open(r'.\world_clock.yaml'))
+            self.wc_config = yaml.safe_load(open(r'world_clock.yaml'))
             self.l_tz = self.wc_config['l_tz']
             self.b_show_seconds = tk.BooleanVar(value=self.wc_config['b_seconds'])
         except FileNotFoundError:
@@ -120,28 +121,8 @@ if __name__ == '__main__':
     if platform.system() == "Windows":
         root.iconbitmap(r'clock_mini_icon.ico')
     else:
-        # See <https://stackoverflow.com/questions/16081201/
-        #   setting-application-icon-in-my-python-tk-base-application-
-        #   on-ubuntu>.
-        # iconPath = os.path.realpath('clock_mini_icon.ico')
         iconPath = os.path.realpath('clock_mini_icon.png')
-        # iconPath = os.path.realpath('clock_mini_icon.gif')
-        # iconPath = os.path.realpath('clock_mini_icon.xbm')
-        # img = tk.PhotoImage(iconPath)
         img = tk.Image("photo", file=iconPath)
-        # ^ no error but no display using root.tk.call iconphoto
-        # img = tk.PhotoImage(file=iconPath)
-        # root.iconphoto(True, img)
-        # root.iconbitmap("@clock_mini_icon.xbm")  # necessary for xbm
-        # root.tk.call('wm', 'iconphoto', root._w, img)
-        # print("root.tk: {}".format(type(root.tk)))  # _tkinter.tkapp
-        # print("root._w: {}".format(type(root._w)))  # str
-        # label = tk.Label(image=img)
-        # root.iconwindow(label)
-        # ^ "_tkinter.TclError: can't use .!label as icon window: not at
-        #   top level"
-        # root.iconbitmap(iconPath)
-        # ^ "_tkinter.TclError: bitmap ... not defined"
         root.tk.call('wm', 'iconphoto', root._w, img)
 
     change_text(app)
