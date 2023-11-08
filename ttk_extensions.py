@@ -7,6 +7,7 @@ class DropDown(ttk.OptionMenu):
     """
     Small class to embed the variable within
     """
+
     def __init__(self, parent, options, initial_value=None):
         self.var = tk.StringVar(parent)
 
@@ -32,6 +33,7 @@ class AutocompleteEntry(ttk.Entry):
     """
     Entry box with autocomplete features (mostly pieced on github)
     """
+
     def __init__(self, autocomplete_list, *args, **kwargs):
         # Listbox length
         if 'listboxLength' in kwargs:
