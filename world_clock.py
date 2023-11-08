@@ -121,7 +121,7 @@ if __name__ == '__main__':
     if platform.system() == "Windows":
         root.iconbitmap(r'clock_mini_icon.ico')
     else:
-        iconPath = os.path.realpath('clock_mini_icon.png')
+        iconPath = os.path.realpath('./images/clock_mini_icon.png')
         img = tk.Image("photo", file=iconPath)
         root.tk.call('wm', 'iconphoto', root._w, img)
 
